@@ -1,6 +1,8 @@
 import org.junit.Before;
 import org.junit.Test;
 
+import java.security.NoSuchAlgorithmException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
@@ -38,7 +40,8 @@ public class FlightManagerTest {
         cabinCrewMembers.add(cabinCrewMember3);
         cabinCrewMembers.add(cabinCrewMember4);
         plane = new Plane(PlaneType.AIRBUSA320);
-        flight = new Flight(pilots, cabinCrewMembers, plane, "4BDIA8765", AirportLocation.LDN, AirportLocation.EDI, "2022-01-07T13:00:00");
+        LocalDateTime departureTime = LocalDateTime.of(2022, 1, 7, 15, 0, 0);
+        flight = new Flight(pilots, cabinCrewMembers, plane, "4BDIA8765", AirportLocation.LDN, AirportLocation.EDI, departureTime);
         passenger1 = new Passenger("Ted Jones", 2);
         passenger2 = new Passenger("Jones Smith", 2);
         passenger3 = new Passenger("Tim Duncan", 3);
@@ -52,7 +55,7 @@ public class FlightManagerTest {
     }
 
     @Test
-    public void canGetCurrentBackageWeightOfPassengers() {
+    public void canGetCurrentBackageWeightOfPassengers() throws NoSuchAlgorithmException {
         flight.bookPassenger(passenger1);
         flight.bookPassenger(passenger2);
         flight.bookPassenger(passenger3);
@@ -61,7 +64,7 @@ public class FlightManagerTest {
     }
 
     @Test
-    public void canGetRemainingBaggageWeightCapacity() {
+    public void canGetRemainingBaggageWeightCapacity() throws NoSuchAlgorithmException {
         flight.bookPassenger(passenger1);
         flight.bookPassenger(passenger2);
         flight.bookPassenger(passenger3);

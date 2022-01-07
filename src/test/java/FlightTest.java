@@ -1,9 +1,12 @@
 import org.junit.Before;
 import org.junit.Test;
 
+import java.security.NoSuchAlgorithmException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 public class FlightTest {
 
@@ -26,7 +29,8 @@ public class FlightTest {
         cabinCrewMembers.add(cabinCrewMember1);
         cabinCrewMembers.add(cabinCrewMember2);
         plane = new Plane(PlaneType.AIRBUSA320);
-        flight = new Flight(pilots, cabinCrewMembers, plane, "4BDIA8765", AirportLocation.LDN, AirportLocation.EDI, "2022-01-07T13:00:00");
+        LocalDateTime departureTime = LocalDateTime.of(2022, 1, 7, 15, 0, 0);
+        flight = new Flight(pilots, cabinCrewMembers, plane, "4BDIA8765", AirportLocation.LDN, AirportLocation.EDI, departureTime);
         passenger1 = new Passenger("Ted Jones", 2);
         passenger2 = new Passenger("Jones Smith", 1);
     }
@@ -68,7 +72,8 @@ public class FlightTest {
 
     @Test
     public void hasDepartureTime() {
-        assertEquals("2022-01-07T13:00:00", flight.getDepartureTime());
+        LocalDateTime departureTime = LocalDateTime.of(2022, 1, 7, 15, 0, 0);
+        assertEquals(departureTime, flight.getDepartureTime());
     }
 
     @Test
@@ -79,23 +84,37 @@ public class FlightTest {
 
     @Test
     public void canReturnNumberOfAvailableSeats() {
-        assertEquals(170, flight.getNumberAvailableSeats());
+        assertEquals(180, flight.getNumberAvailableSeats());
     }
 
     @Test
-    public void canBookAPassengerInWhenSpace() {
+    public void canBookAPassengerInWhenSpace() throws NoSuchAlgorithmException {
         flight.bookPassenger(passenger1);
-        assertEquals(169, flight.getNumberAvailableSeats());
+        assertEquals(179, flight.getNumberAvailableSeats());
         assertEquals(1, flight.getPassengers().size());
     }
 
     @Test
-    public void canNotBookPassengerInWhenNoSpace() {
+    public void canNotBookPassengerInWhenNoSpace() throws NoSuchAlgorithmException {
         for (int i=0; i<180; i++) {
             flight.bookPassenger(passenger2);
         }
-        assertEquals(170, flight.getPassengers().size());
+        assertEquals(180, flight.getPassengers().size());
         assertEquals(0, flight.getNumberAvailableSeats());
+    }
+
+    @Test
+    public void passengerFlightStatusSetToTrueWhenBookedOntoPlane() throws NoSuchAlgorithmException {
+        assertEquals(false, passenger1.getOnFlight());
+        flight.bookPassenger(passenger1);
+        assertEquals(true, passenger1.getOnFlight());
+    }
+
+    @Test
+    public void passengerSeatNumberSetAfterBooking() throws NoSuchAlgorithmException {
+        assertEquals(null, passenger1.getSeatNumber());
+        flight.bookPassenger(passenger1);
+        assertFalse(passenger1.getSeatNumber() == null);
     }
 
 }

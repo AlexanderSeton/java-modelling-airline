@@ -1,4 +1,6 @@
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.time.LocalDateTime;  // import the LocalDateTime class
 
 public class Flight {
 
@@ -9,9 +11,9 @@ public class Flight {
     private String flightNumber;
     private AirportLocation destinationAirport;
     private AirportLocation departureAirport;
-    private String departureTime;
+    private LocalDateTime departureTime;
 
-    public Flight(ArrayList<Pilot> pilots, ArrayList<CabinCrewMember> cabinCrew, Plane plane, String flightNumber, AirportLocation destinationAirport, AirportLocation departureAirport, String departureTime) {
+    public Flight(ArrayList<Pilot> pilots, ArrayList<CabinCrewMember> cabinCrew, Plane plane, String flightNumber, AirportLocation destinationAirport, AirportLocation departureAirport, LocalDateTime departureTime) {
         this.pilots = pilots;
         this.cabinCrew = cabinCrew;
         this.plane = plane;
@@ -50,7 +52,7 @@ public class Flight {
         return this.departureAirport;
     }
 
-    public String getDepartureTime() {
+    public LocalDateTime getDepartureTime() {
         return this.departureTime;
     }
 
@@ -58,9 +60,11 @@ public class Flight {
         return this.plane.getPlaneCapacity() - this.passengers.size();
     }
 
-    public void bookPassenger(Passenger passenger) {
+    public void bookPassenger(Passenger passenger) throws NoSuchAlgorithmException {
         if (this.getNumberAvailableSeats() >= 1) {
             this.passengers.add(passenger);
+            passenger.setOnFlight(true);
+            passenger.setSeatNumber();
         }
     }
 
