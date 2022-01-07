@@ -20,4 +20,8 @@ public class CabinCrewMember {
         return this.rank.getLabel();
     }
 
+    public String relayMessage() {
+        return this.getEnumValue() + " " + this.getName() + " is speaking to the passengers.";
+    }
+
 }

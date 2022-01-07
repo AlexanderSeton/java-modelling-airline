@@ -26,4 +26,8 @@ public class Pilot {
         return this.rank.getFullRank();
     }
 
+    public String flyPlane() {
+        return this.getFullRank() + " " + this.getName() + " is flying the plane.";
+    }
+
 }

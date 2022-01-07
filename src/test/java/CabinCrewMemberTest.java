@@ -26,4 +26,9 @@ public class CabinCrewMemberTest {
         assertEquals("flight engineer", cabinCrewMember.getEnumValue());
     }
 
+    @Test
+    public void canSpeakToPassengers() {
+        assertEquals("flight engineer Philip Smith is speaking to the passengers.", cabinCrewMember.relayMessage());
+    }
+
 }

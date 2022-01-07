@@ -32,4 +32,9 @@ public class PilotTest {
         assertEquals("captain", pilot.getFullRank());
     }
 
+    @Test
+    public void canFlyPlane() {
+        assertEquals("captain Bill Jones is flying the plane.", pilot.flyPlane());
+    }
+
 }
