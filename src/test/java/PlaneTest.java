@@ -24,7 +24,22 @@ public class PlaneTest {
 
     @Test
     public void canGetPlaneWeight() {
-        assertEquals(183500, plane.getPlaneWeight());
+        assertEquals(200000, plane.getPlaneWeight());
+    }
+
+    @Test
+    public void canGetPlaneMaxWeight() {
+        assertEquals(439000, plane.getPlaneMaxWeight());
+    }
+
+    @Test
+    public void canGetPlaneWeightCapacity() {
+        assertEquals(239000, plane.getPlaneWeightCapacity());
+    }
+
+    @Test
+    public void canGetPlaneFuelWeight() {
+        assertEquals(147000, plane.getPlaneFuelWeight());
     }
 
 }

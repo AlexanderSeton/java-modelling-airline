@@ -18,4 +18,16 @@ public class Plane {
         return this.planeType.getWeight();
     }
 
+    public int getPlaneMaxWeight() {
+        return this.planeType.getMaxWeight();
+    }
+
+    public int getPlaneWeightCapacity() {
+        return this.getPlaneMaxWeight() - this.getPlaneWeight();
+    }
+
+    public int getPlaneFuelWeight() {
+        return this.planeType.getFuelWeight();
+    }
+
 }
